@@ -13,12 +13,12 @@ func main() {
 	fmt.Println("Ввведите целое число")
 	_, err = fmt.Scanln(&input)
 	if err != nil {
-		fmt.Println("Ошибка ввода")
+		fmt.Printf("Ошибка ввода %v\n", err)
 		os.Exit(0)
 	}
 	maxNumber, err := strconv.ParseInt(input, 10, 64)
 	if err != nil {
-		fmt.Println("Некорректный ввод")
+		fmt.Printf("Некорректный ввод %v\n", err)
 		os.Exit(0)
 	}
 	primeNumbers := findPrimeNumbers(maxNumber)
@@ -31,8 +31,8 @@ func findPrimeNumbers(maxNumber int64) []int64 {
 		fmt.Println("Минимальное простое число равно 2")
 		return nil
 	}
-
-	var primeNumbers = make([]int64, 0, 3)
+	sliceSize := math.Round(float64(maxNumber)/math.Log(float64(maxNumber))) + 1
+	var primeNumbers = make([]int64, sliceSize, sliceSize)
 	primeNumbers = append(primeNumbers, 2)
 	for i := int64(3); i <= maxNumber; i += 2 {
 		isComposite := false
