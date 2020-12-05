@@ -8,32 +8,20 @@ import (
 )
 
 func main() {
-	var first, second, operation string
+	var operation string
 	var result float64
-	fmt.Println("Введите два чила и операцию")
-	for true {
+	fmt.Println("Введите два чила и операцию, \nДля выхода введите 'q'")
+	for {
 		fmt.Println("Введите первое число")
-		fmt.Scanln(&first)
-		if first == "q" {
-			os.Exit(0)
-		}
-		firstNumber, err := strconv.ParseFloat(first, 64)
-		if err != nil {
-			fmt.Println("Ошибка: необходимо ввести число")
-			continue
-		}
+		firstNumber := scanNumber()
 		fmt.Println("Введите второе число")
-		fmt.Scanln(&second)
-		if first == "q" {
-			os.Exit(0)
-		}
-		secondNumber, err := strconv.ParseFloat(second, 64)
+		secondNumber := scanNumber()
+		fmt.Println("Введите операцию число")
+		_, err := fmt.Scanln(&operation)
 		if err != nil {
-			fmt.Println("Ошибка: необходимо ввести число")
+			fmt.Printf("Ошибка ввода %v\nпопробуйте ввести операцию еще раз", err)
 			continue
 		}
-		fmt.Println("Введите операцию число")
-		fmt.Scanln(&operation)
 		switch operation {
 		case "q":
 			os.Exit(0)
@@ -57,5 +45,25 @@ func main() {
 		}
 
 		fmt.Printf("%f %s %f = %f\n", firstNumber, operation, secondNumber, result)
+	}
+}
+
+func scanNumber() float64 {
+	var input string
+	for {
+		_, err := fmt.Scanln(&input)
+		if err != nil {
+			fmt.Printf("Ошибка ввода %v\nпопробуйте ввести число еще раз", err)
+			continue
+		}
+		if input == "q" {
+			os.Exit(0)
+		}
+		number, err := strconv.ParseFloat(input, 64)
+		if err != nil {
+			fmt.Println("Ошибка: необходимо ввести число")
+			continue
+		}
+		return number
 	}
 }
