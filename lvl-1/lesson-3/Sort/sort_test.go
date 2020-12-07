@@ -23,6 +23,14 @@ func TestInsertion(t *testing.T) {
 		t.Errorf("results not match\nGot:\n%v\nExpected:\n%v", sorted, slice)
 	}
 }
+func TestInsertionWiki(t *testing.T) {
+	slice := randomInt64Slice()
+	sorted := InsertionWiki(slice)
+	sort.Slice(slice, func(i, j int) bool { return slice[i] < slice[j] })
+	if !Equal(sorted, slice) {
+		t.Errorf("results not match\nGot:\n%v\nExpected:\n%v", sorted, slice)
+	}
+}
 func TestBuiltIn(t *testing.T) {
 	slice := randomInt64Slice()
 	sorted := BuiltIn(slice)
@@ -61,10 +69,17 @@ func BenchmarkBubble(b *testing.B) {
 	}
 }
 
-func BenchmarkFast(b *testing.B) {
+func BenchmarkInsertion(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		slice := randomInt64Slice()
 		Insertion(slice)
+	}
+}
+
+func BenchmarkInsertionWiki(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		slice := randomInt64Slice()
+		InsertionWiki(slice)
 	}
 }
 
