@@ -30,12 +30,13 @@ func Insertion(slice []int64) []int64 {
 			j--
 			if j < 0 {
 				if modify {
-					copy(sortableSlice, append([]int64{tmp}, sortableSlice[:i]...))
+					copy(sortableSlice[1:], sortableSlice[:i])
+					sortableSlice[0] = tmp
 				}
 				break
 			} else if sortableSlice[j] < tmp {
 				if modify {
-					copy(sortableSlice, append(sortableSlice[:j+1], sortableSlice[j:i]...))
+					copy(sortableSlice[j+1:i+1], sortableSlice[j:i])
 					sortableSlice[j+1] = tmp
 				}
 				break
