@@ -8,8 +8,8 @@ import (
 
 func main() {
 	fmt.Println("Введите номер числа Фибоначчи, которое хотите получить")
-	n := Scan.Int64()
-	fmt.Println("Loop result: ", Fibonacci.Loop(n))
+	n := scan.Int64()
+	fmt.Println("Loop result: ", fibonacci.Loop(n))
 	//fmt.Println("Recursive result: ", Fibonacci.Recursive(n))
-	fmt.Println("RecursiveWithMap result: ", Fibonacci.RecursiveWithMap(n))
+	fmt.Println("RecursiveWithMap result: ", fibonacci.RecursiveWithMap(n))
 }

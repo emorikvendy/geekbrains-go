@@ -8,7 +8,7 @@ import (
 
 func main() {
 	fmt.Println("Ввведите целое число")
-	maxNumber := Scan.Int64()
+	maxNumber := scan.Int64()
 	primeNumbers := findPrimeNumbers(maxNumber)
 	fmt.Println(primeNumbers)
 }
