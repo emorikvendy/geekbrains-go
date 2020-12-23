@@ -2,25 +2,13 @@ package main
 
 import (
 	"fmt"
+	"geekbrains-go/lvl-1/lesson-4/Scan"
 	"math"
-	"os"
-	"strconv"
 )
 
 func main() {
-	var input string
-	var err error
 	fmt.Println("Ввведите целое число")
-	_, err = fmt.Scanln(&input)
-	if err != nil {
-		fmt.Printf("Ошибка ввода %v\n", err)
-		os.Exit(0)
-	}
-	maxNumber, err := strconv.ParseInt(input, 10, 64)
-	if err != nil {
-		fmt.Printf("Некорректный ввод %v\n", err)
-		os.Exit(0)
-	}
+	maxNumber := scan.Int64()
 	primeNumbers := findPrimeNumbers(maxNumber)
 	fmt.Println(primeNumbers)
 }
