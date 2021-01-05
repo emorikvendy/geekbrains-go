@@ -2,16 +2,17 @@ package scan
 
 import (
 	"fmt"
+	"io"
 	"os"
 	"strconv"
 )
 
-func Int64() int64 {
+func Int64(w io.Writer) int64 {
 	var input string
 	for {
 		_, err := fmt.Scanln(&input)
 		if err != nil {
-			fmt.Printf("Ошибка ввода %v\nпопробуйте ввести число еще раз", err)
+			fmt.Fprintf(w, "Ошибка ввода %v\nпопробуйте ввести число еще раз", err)
 			continue
 		}
 		if input == "q" {
@@ -19,19 +20,19 @@ func Int64() int64 {
 		}
 		number, err := strconv.ParseInt(input, 10, 64)
 		if err != nil {
-			fmt.Println("Ошибка: необходимо ввести целое число")
+			fmt.Fprintf(w, "Ошибка: необходимо ввести целое число")
 			continue
 		}
 		return number
 	}
 }
 
-func Float64() float64 {
+func Float64(w io.Writer) float64 {
 	var input string
 	for {
 		_, err := fmt.Scanln(&input)
 		if err != nil {
-			fmt.Printf("Ошибка ввода %v\nпопробуйте ввести число еще раз", err)
+			fmt.Fprintf(w, "Ошибка ввода %v\nпопробуйте ввести число еще раз", err)
 			continue
 		}
 		if input == "q" {
@@ -39,7 +40,7 @@ func Float64() float64 {
 		}
 		number, err := strconv.ParseFloat(input, 64)
 		if err != nil {
-			fmt.Println("Ошибка: необходимо ввести число")
+			fmt.Fprintln(w, "Ошибка: необходимо ввести число")
 			continue
 		}
 		return number

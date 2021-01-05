@@ -1,21 +1,21 @@
-package main
+package calc
 
 import (
 	"fmt"
-	"geekbrains-go/lvl-1/lesson-4/Scan"
+	"geekbrains-go/lvl-1/scan"
 	"math"
 	"os"
 )
 
-func main() {
+func calc() {
 	var operation string
 	var result float64
 	fmt.Println("Введите два чила и операцию, \nДля выхода введите 'q'")
 	for {
 		fmt.Println("Введите первое число")
-		firstNumber := scan.Float64()
+		firstNumber := scan.Float64(os.Stdout)
 		fmt.Println("Введите второе число")
-		secondNumber := scan.Float64()
+		secondNumber := scan.Float64(os.Stdout)
 		fmt.Println("Введите операцию число")
 		_, err := fmt.Scanln(&operation)
 		if err != nil {

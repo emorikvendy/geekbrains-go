@@ -1,14 +1,15 @@
-package main
+package prime_numbers
 
 import (
 	"fmt"
-	"geekbrains-go/lvl-1/lesson-4/Scan"
+	"geekbrains-go/lvl-1/scan"
 	"math"
+	"os"
 )
 
-func main() {
+func run() {
 	fmt.Println("Ввведите целое число")
-	maxNumber := scan.Int64()
+	maxNumber := scan.Int64(os.Stdout)
 	primeNumbers := findPrimeNumbers(maxNumber)
 	fmt.Println(primeNumbers)
 }

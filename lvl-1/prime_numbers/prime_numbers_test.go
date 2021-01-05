@@ -1,4 +1,4 @@
-package main
+package prime_numbers
 
 import (
 	"math"
