@@ -1,0 +1,4 @@
+port: 8080
+jaeger_url: http://jaeger:16686
+sentry_url: http://sentry:9000
+kafka_broker: kafka:9092
