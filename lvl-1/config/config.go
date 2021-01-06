@@ -5,6 +5,7 @@ import (
 	"errors"
 	"gopkg.in/yaml.v3"
 	"log"
+	"net/url"
 	"os"
 )
 
@@ -95,5 +96,22 @@ func validateConfiguration(config Config) error {
 	if config.DbUrl == "" || config.SomeAppId == "" || config.SomeAppKey == "" {
 		return errors.New("обязательное поле не задано")
 	}
+
+	if !IsUrl(config.DbUrl) {
+		return errors.New("DbUrl должно быть ссылкой")
+	}
+
+	if config.SentryUrl != "" && !IsUrl(config.SentryUrl) {
+		return errors.New("SentryUrl должно быть ссылкой")
+	}
+
+	if config.JaegerUrl != "" && !IsUrl(config.JaegerUrl) {
+		return errors.New("SentryUrl должно быть ссылкой")
+	}
 	return nil
+}
+
+func IsUrl(str string) bool {
+	u, err := url.Parse(str)
+	return err == nil && u.Scheme != "" && u.Host != ""
 }
