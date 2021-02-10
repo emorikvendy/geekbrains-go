@@ -11,15 +11,15 @@ import (
 
 type Config struct {
 	Port        string `json:"port" yaml:"port"`
-	DbUrl       string `json:"db_url" yaml:"db_url"`
-	JaegerUrl   string `json:"jaeger_url" yaml:"jaeger_url"`
-	SentryUrl   string `json:"sentry_url" yaml:"sentry_url"`
+	DbURL       string `json:"db_url" yaml:"db_url"`
+	JaegerURL   string `json:"jaeger_url" yaml:"jaeger_url"`
+	SentryURL   string `json:"sentry_url" yaml:"sentry_url"`
 	KafkaBroker string `json:"kafka_broker" yaml:"kafka_broker"`
-	SomeAppId   string `json:"some_app_id" yaml:"some_app_id"`
+	SomeAppID   string `json:"some_app_id" yaml:"some_app_id"`
 	SomeAppKey  string `json:"some_app_key" yaml:"some_app_key"`
 }
 
-func FromJson(filename string) (*Config, error) {
+func FromJSON(filename string) (*Config, error) {
 	if _, err := os.Stat(filename); os.IsNotExist(err) {
 		return nil, err
 	}
@@ -47,7 +47,7 @@ func FromJson(filename string) (*Config, error) {
 	return &config, nil
 }
 
-func FromYaml(filename string) (*Config, error) {
+func FromYAML(filename string) (*Config, error) {
 	if _, err := os.Stat(filename); os.IsNotExist(err) {
 		return nil, err
 	}
@@ -79,11 +79,11 @@ func FromYaml(filename string) (*Config, error) {
 func FromEnvironment() (*Config, error) {
 	config := Config{}
 	config.Port = os.Getenv("PORT")
-	config.DbUrl = os.Getenv("DB_URL")
-	config.JaegerUrl = os.Getenv("JAEGER_URL")
-	config.SentryUrl = os.Getenv("SENTRY_URL")
+	config.DbURL = os.Getenv("DB_URL")
+	config.JaegerURL = os.Getenv("JAEGER_URL")
+	config.SentryURL = os.Getenv("SENTRY_URL")
 	config.KafkaBroker = os.Getenv("KAFKA_BROKER")
-	config.SomeAppId = os.Getenv("SOME_APP_ID")
+	config.SomeAppID = os.Getenv("SOME_APP_ID")
 	config.SomeAppKey = os.Getenv("SOME_APP_KEY")
 	if err := validateConfiguration(config); err != nil {
 		return nil, err
@@ -93,20 +93,20 @@ func FromEnvironment() (*Config, error) {
 }
 
 func validateConfiguration(config Config) error {
-	if config.DbUrl == "" || config.SomeAppId == "" || config.SomeAppKey == "" {
+	if config.DbURL == "" || config.SomeAppID == "" || config.SomeAppKey == "" {
 		return errors.New("обязательное поле не задано")
 	}
 
-	if !IsUrl(config.DbUrl) {
-		return errors.New("DbUrl должно быть ссылкой")
+	if !IsUrl(config.DbURL) {
+		return errors.New("DbURL должно быть ссылкой")
 	}
 
-	if config.SentryUrl != "" && !IsUrl(config.SentryUrl) {
-		return errors.New("SentryUrl должно быть ссылкой")
+	if config.SentryURL != "" && !IsUrl(config.SentryURL) {
+		return errors.New("SentryURL должно быть ссылкой")
 	}
 
-	if config.JaegerUrl != "" && !IsUrl(config.JaegerUrl) {
-		return errors.New("SentryUrl должно быть ссылкой")
+	if config.JaegerURL != "" && !IsUrl(config.JaegerURL) {
+		return errors.New("SentryURL должно быть ссылкой")
 	}
 	return nil
 }

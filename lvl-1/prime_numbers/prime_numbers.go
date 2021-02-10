@@ -3,25 +3,29 @@ package prime_numbers
 import (
 	"fmt"
 	"geekbrains-go/lvl-1/scan"
+	"io"
 	"math"
 	"os"
 )
 
 func run() {
 	fmt.Println("Ввведите целое число")
-	maxNumber := scan.Int64(os.Stdout)
-	primeNumbers := findPrimeNumbers(maxNumber)
+	maxNumber := scan.Int64(os.Stdout, os.Stdin)
+	primeNumbers := findPrimeNumbers(maxNumber, os.Stdout)
 	fmt.Println(primeNumbers)
 }
 
-func findPrimeNumbers(maxNumber int64) []int64 {
+func findPrimeNumbers(maxNumber int64, w io.Writer) []int64 {
 
 	if maxNumber <= 1 {
-		fmt.Println("Минимальное простое число равно 2")
+		_, err := fmt.Fprintln(w, "Минимальное простое число равно 2")
+		if err != nil {
+			panic("Ошибка вывода")
+		}
 		return nil
 	}
-	sliceSize := math.Round(float64(maxNumber)/math.Log(float64(maxNumber))) + 1
-	var primeNumbers = make([]int64, sliceSize, sliceSize)
+	sliceSize := int64(math.Round(float64(maxNumber)/math.Log(float64(maxNumber)))) + 1
+	var primeNumbers = make([]int64, 0, sliceSize)
 	primeNumbers = append(primeNumbers, 2)
 	for i := int64(3); i <= maxNumber; i += 2 {
 		isComposite := false
