@@ -35,9 +35,9 @@ func main() {
 		os.Setenv("SOME_APP_KEY", "testkey")
 		conf, err = config.FromEnvironment()
 	case "json":
-		conf, err = config.FromJson(*filename)
+		conf, err = config.FromJSON(*filename)
 	case "yaml":
-		conf, err = config.FromYaml(*filename)
+		conf, err = config.FromYAML(*filename)
 	default:
 		fmt.Printf("Неизвестный тип конфигурационного файла %s\n", *configType)
 		os.Exit(1)
