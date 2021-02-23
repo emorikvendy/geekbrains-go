@@ -7,7 +7,8 @@ import (
 	"os"
 )
 
-func calc() {
+// console calculator, accepts two numbers and the operator
+func Calc() {
 	var operation string
 	var result float64
 	fmt.Println("Введите два чила и операцию, \nДля выхода введите 'q'")
