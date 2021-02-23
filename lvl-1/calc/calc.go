@@ -13,9 +13,9 @@ func calc() {
 	fmt.Println("Введите два чила и операцию, \nДля выхода введите 'q'")
 	for {
 		fmt.Println("Введите первое число")
-		firstNumber := scan.Float64(os.Stdout)
+		firstNumber := scan.Float64(os.Stdout, os.Stdin)
 		fmt.Println("Введите второе число")
-		secondNumber := scan.Float64(os.Stdout)
+		secondNumber := scan.Float64(os.Stdout, os.Stdin)
 		fmt.Println("Введите операцию число")
 		_, err := fmt.Scanln(&operation)
 		if err != nil {
