@@ -9,7 +9,7 @@ import (
 
 func main() {
 	fmt.Println("What do you want to do? \n1 - panic\n2 - create file")
-	key := scan.Int64(os.Stdout)
+	key := scan.Int64(os.Stdout, os.Stdin)
 	switch key {
 	case 1:
 		defer func() {
@@ -24,9 +24,13 @@ func main() {
 		_, err := fmt.Scanln(&filename)
 		if err != nil {
 			fmt.Printf("Invalid input %v\n", err)
-			os.Exit(1)
+			return
 		}
 		file, err := CreateFile(filename)
+		if err != nil {
+			fmt.Printf("File creation error %v\n", err)
+			return
+		}
 		defer file.Close()
 		_, _ = fmt.Fprintln(file, "data")
 	default:
