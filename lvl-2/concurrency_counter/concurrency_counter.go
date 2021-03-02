@@ -8,15 +8,15 @@ import (
 func Run() {
 	wg := &sync.WaitGroup{}
 	var counter int16
-	var channel = make(chan int8)
+	var channel = make(chan struct{}, 1)
 	for i := 1; i <= 1000; i++ {
 		wg.Add(1)
-		go func(counter *int16, channel chan int8, wg *sync.WaitGroup) {
-			defer func(channel chan int8, wg *sync.WaitGroup) {
-				<-channel
+		go func(counter *int16, channel chan struct{}, wg *sync.WaitGroup) {
+			defer func(channel chan struct{}, wg *sync.WaitGroup) {
 				wg.Done()
+				<-channel
 			}(channel, wg)
-			channel <- 1
+			channel <- struct{}{}
 			*counter++
 		}(&counter, channel, wg)
 	}

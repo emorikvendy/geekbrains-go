@@ -1,3 +1,1 @@
-module github.com/emorikvendy/geekbrains-go
-
-go 1.16
+module "geekbrains-go"
