@@ -1,6 +1,7 @@
 package sort
 
 import (
+	"fmt"
 	"math/rand"
 	"sort"
 	"testing"
@@ -60,6 +61,30 @@ func Equal(a, b []int64) bool {
 		}
 	}
 	return true
+}
+
+func ExampleBubble() {
+	slice := randomInt64Slice()
+	sorted := Bubble(slice)
+	fmt.Printf("%v", sorted)
+}
+
+func ExampleInsertion() {
+	slice := randomInt64Slice()
+	sorted := Insertion(slice)
+	fmt.Printf("%v", sorted)
+}
+
+func ExampleInsertionWiki() {
+	slice := randomInt64Slice()
+	sorted := InsertionWiki(slice)
+	fmt.Printf("%v", sorted)
+}
+
+func ExampleBuiltIn() {
+	slice := randomInt64Slice()
+	sorted := BuiltIn(slice)
+	fmt.Printf("%v", sorted)
 }
 
 func BenchmarkBubble(b *testing.B) {
