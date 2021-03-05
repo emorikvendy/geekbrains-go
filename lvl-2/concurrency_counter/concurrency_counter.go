@@ -3,23 +3,54 @@ package concurrency_counter
 import (
 	"fmt"
 	"sync"
+	"time"
 )
 
-func Run() {
+const count = 1000
+
+func RunWG() {
 	wg := &sync.WaitGroup{}
 	var counter int16
 	var channel = make(chan struct{}, 1)
-	for i := 1; i <= 1000; i++ {
+	defer close(channel)
+	for i := 0; i < count; i++ {
 		wg.Add(1)
-		go func(counter *int16, channel chan struct{}, wg *sync.WaitGroup) {
-			defer func(channel chan struct{}, wg *sync.WaitGroup) {
+		go func() {
+			defer func() {
 				wg.Done()
 				<-channel
-			}(channel, wg)
+			}()
 			channel <- struct{}{}
-			*counter++
-		}(&counter, channel, wg)
+			counter++
+		}()
 	}
 	wg.Wait()
+	fmt.Println(counter)
+}
+
+func Run() {
+	var (
+		counter       int16
+		lockChannel   = make(chan struct{}, 1)
+		finishChannel = make(chan struct{}, count)
+	)
+	for i := 0; i < count; i++ {
+		finishChannel <- struct{}{}
+		go func() {
+			defer func() {
+				<-lockChannel
+				<-finishChannel
+			}()
+			lockChannel <- struct{}{}
+			counter++
+		}()
+	}
+
+	for true {
+		if len(finishChannel) == 0 {
+			break
+		}
+		time.Sleep(time.Millisecond)
+	}
 	fmt.Println(counter)
 }

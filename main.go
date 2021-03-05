@@ -5,11 +5,19 @@ import (
 	"geekbrains-go/lvl-1/scan"
 	"geekbrains-go/lvl-2/concurrency_counter"
 	. "geekbrains-go/lvl-2/error_with_date"
+	"geekbrains-go/lvl-2/signals"
 	"os"
 )
 
+const count = 10000
+
 func main() {
-	fmt.Println("What do you want to do? \n1 - panic\n2 - create file\n3 - run concurrency counter")
+	fmt.Println("What do you want to do? \n" +
+		"1 - panic\n" +
+		"2 - create file\n" +
+		"3 - run concurrency counter with WaitGroup\n" +
+		"4 - run concurrency counter\n" +
+		"5 - wait for term signal\n")
 	key := scan.Int64(os.Stdout, os.Stdin)
 	switch key {
 	case 1:
@@ -35,7 +43,11 @@ func main() {
 		defer file.Close()
 		_, _ = fmt.Fprintln(file, "data")
 	case 3:
+		concurrency_counter.RunWG()
+	case 4:
 		concurrency_counter.Run()
+	case 5:
+		signals.WaitForTerm()
 	default:
 		fmt.Println("Unknown code")
 
