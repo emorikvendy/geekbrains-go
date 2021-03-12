@@ -10,7 +10,7 @@ import (
 func Int64(w io.Writer, r io.Reader) int64 {
 	var input string
 	for {
-		_, err := fmt.Fscanln(r, input)
+		_, err := fmt.Fscanln(r, &input)
 		if err != nil {
 			fmt.Fprintf(w, "Ошибка ввода %v\nпопробуйте ввести число еще раз", err)
 			continue
@@ -30,7 +30,7 @@ func Int64(w io.Writer, r io.Reader) int64 {
 func Float64(w io.Writer, r io.Reader) float64 {
 	var input string
 	for {
-		_, err := fmt.Fscanln(r, input)
+		_, err := fmt.Fscanln(r, &input)
 		if err != nil {
 			fmt.Fprintf(w, "Ошибка ввода %v\nпопробуйте ввести число еще раз", err)
 			continue
