@@ -73,3 +73,19 @@ func RunMutex() {
 	wg.Wait()
 	fmt.Println(counter)
 }
+
+func RunRace() {
+	wg := &sync.WaitGroup{}
+	var counter int16
+	for i := 0; i < count; i++ {
+		wg.Add(1)
+		go func() {
+			defer func() {
+				wg.Done()
+			}()
+			counter++
+		}()
+	}
+	wg.Wait()
+	fmt.Println(counter)
+}

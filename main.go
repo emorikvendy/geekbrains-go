@@ -20,7 +20,8 @@ func main() {
 		"4 - run concurrency counter\n" +
 		"5 - run concurrency counter with Mutex\n" +
 		"6 - wait for term signal\n" +
-		"7 - trace concurrency counter with Mutex\n")
+		"7 - trace concurrency counter with Mutex\n" +
+		"8 - run concurrency counter with race\n")
 	key := scan.Int64(os.Stdout, os.Stdin)
 	switch key {
 	case 1:
@@ -57,6 +58,8 @@ func main() {
 		trace.Start(os.Stderr)
 		defer trace.Stop()
 		concurrency_counter.RunMutex()
+	case 8:
+		concurrency_counter.RunRace()
 	default:
 		fmt.Println("Unknown code")
 
