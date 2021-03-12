@@ -54,3 +54,22 @@ func Run() {
 	}
 	fmt.Println(counter)
 }
+
+func RunMutex() {
+	wg := &sync.WaitGroup{}
+	var counter int16
+	var mx sync.Mutex
+	for i := 0; i < count; i++ {
+		wg.Add(1)
+		go func() {
+			defer func() {
+				mx.Unlock()
+				wg.Done()
+			}()
+			mx.Lock()
+			counter++
+		}()
+	}
+	wg.Wait()
+	fmt.Println(counter)
+}
