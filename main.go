@@ -12,12 +12,13 @@ import (
 const count = 10000
 
 func main() {
-	fmt.Println("What do you want to do? \n" +
+	fmt.Printf("What do you want to do? \n" +
 		"1 - panic\n" +
 		"2 - create file\n" +
 		"3 - run concurrency counter with WaitGroup\n" +
 		"4 - run concurrency counter\n" +
-		"5 - wait for term signal\n")
+		"5 - run concurrency counter with Mutex\n" +
+		"6 - wait for term signal\n")
 	key := scan.Int64(os.Stdout, os.Stdin)
 	switch key {
 	case 1:
@@ -47,6 +48,8 @@ func main() {
 	case 4:
 		concurrency_counter.Run()
 	case 5:
+		concurrency_counter.RunMutex()
+	case 6:
 		signals.WaitForTerm()
 	default:
 		fmt.Println("Unknown code")
