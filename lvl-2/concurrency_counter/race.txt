@@ -1,0 +1,36 @@
+eol@DESKTOP-646AJNI:/mnt/c/Users/kopie/go/src/geekbrains-go$ go run -race main.go
+What do you want to do?
+1 - panic
+2 - create file
+3 - run concurrency counter with WaitGroup
+4 - run concurrency counter
+5 - run concurrency counter with Mutex
+6 - wait for term signal
+7 - trace concurrency counter with Mutex
+8 - run concurrency counter with race
+8
+==================
+WARNING: DATA RACE
+Read at 0x00c00013c028 by goroutine 8:
+  geekbrains-go/lvl-2/concurrency_counter.RunRace.func1()
+      /mnt/c/Users/kopie/go/src/geekbrains-go/lvl-2/concurrency_counter/concurrency_counter.go:86 +0x6c
+
+Previous write at 0x00c00013c028 by goroutine 7:
+  geekbrains-go/lvl-2/concurrency_counter.RunRace.func1()
+      /mnt/c/Users/kopie/go/src/geekbrains-go/lvl-2/concurrency_counter/concurrency_counter.go:86 +0x84
+
+Goroutine 8 (running) created at:
+  geekbrains-go/lvl-2/concurrency_counter.RunRace()
+      /mnt/c/Users/kopie/go/src/geekbrains-go/lvl-2/concurrency_counter/concurrency_counter.go:82 +0xe9
+  main.main()
+      /mnt/c/Users/kopie/go/src/geekbrains-go/main.go:62 +0x69e
+
+Goroutine 7 (finished) created at:
+  geekbrains-go/lvl-2/concurrency_counter.RunRace()
+      /mnt/c/Users/kopie/go/src/geekbrains-go/lvl-2/concurrency_counter/concurrency_counter.go:82 +0xe9
+  main.main()
+      /mnt/c/Users/kopie/go/src/geekbrains-go/main.go:62 +0x69e
+==================
+959
+Found 1 data race(s)
+exit status 66
