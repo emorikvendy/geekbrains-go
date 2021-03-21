@@ -13,6 +13,12 @@ func RunWG() {
 	var counter int16
 	var channel = make(chan struct{}, 1)
 	defer close(channel)
+	go func() {
+		for i := 0; i < 100000; i++ {
+			i++
+			i--
+		}
+	}()
 	for i := 0; i < count; i++ {
 		wg.Add(1)
 		go func() {

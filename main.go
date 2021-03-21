@@ -5,6 +5,7 @@ import (
 	"geekbrains-go/lvl-1/scan"
 	"geekbrains-go/lvl-2/concurrency_counter"
 	. "geekbrains-go/lvl-2/error_with_date"
+	"geekbrains-go/lvl-2/go_parser"
 	"geekbrains-go/lvl-2/go_sched"
 	"geekbrains-go/lvl-2/signals"
 	"os"
@@ -25,7 +26,8 @@ func main() {
 		"7 - trace concurrency counter with Mutex\n" +
 		"8 - run concurrency counter with race\n" +
 		"9 - run long process with GoSched\n" +
-		"10 - run long process without GoSched\n")
+		"10 - run long process without GoSched\n" +
+		"11 - run go parser\n")
 	key := scan.Int64(os.Stdout, os.Stdin)
 	switch key {
 	case 1:
@@ -74,6 +76,9 @@ func main() {
 		trace.Start(os.Stderr)
 		defer trace.Stop()
 		go_sched.RunWithoutGoShed()
+	case 11:
+		sep := string(os.PathSeparator)
+		go_parser.Run("lvl-2"+sep+"concurrency_counter"+sep+"concurrency_counter.go", "RunWG")
 	default:
 		fmt.Println("Unknown code")
 
