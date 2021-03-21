@@ -43,17 +43,13 @@ func countGoStmt(stmts []ast.Stmt) int64 {
 	for _, stmt := range stmts {
 		if _, ok := stmt.(*ast.GoStmt); ok {
 			count++
-		}
-		if ifStmt, ok := stmt.(*ast.IfStmt); ok {
+		} else if ifStmt, ok := stmt.(*ast.IfStmt); ok {
 			count += countGoStmt(ifStmt.Body.List)
-		}
-		if forStmt, ok := stmt.(*ast.ForStmt); ok {
+		} else if forStmt, ok := stmt.(*ast.ForStmt); ok {
 			count += countGoStmt(forStmt.Body.List)
-		}
-		if switchStmt, ok := stmt.(*ast.SwitchStmt); ok {
+		} else if switchStmt, ok := stmt.(*ast.SwitchStmt); ok {
 			count += countGoStmt(switchStmt.Body.List)
-		}
-		if caseClause, ok := stmt.(*ast.CaseClause); ok {
+		} else if caseClause, ok := stmt.(*ast.CaseClause); ok {
 			count += countGoStmt(caseClause.Body)
 		}
 	}
